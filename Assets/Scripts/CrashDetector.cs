@@ -4,7 +4,11 @@ public class CrashDetector : MonoBehaviour
 {
     [SerializeField] float delay = 1f;
     [SerializeField] ParticleSystem crashparticles;
-     
+    PlayerController playerController;
+    void Start()
+    {
+        playerController = FindFirstObjectByType<PlayerController>();
+    }
     void ReloadScene()
     {
         SceneManager.LoadScene(0);
@@ -16,6 +20,7 @@ public class CrashDetector : MonoBehaviour
         {
             crashparticles.Play();
             Invoke("ReloadScene", delay);
+            playerController.DisableControls();
         }
     }
 
